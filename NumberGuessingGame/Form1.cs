@@ -16,16 +16,29 @@ namespace NumberGuessingGame
         public Form1()
         {
             InitializeComponent();
-            GenerateRandomNumber();
+            InitialGame();
+            this.AcceptButton = btn;
         }
 
         private void btn_Click(object sender, EventArgs e)
         {
+            try
+            {
+                CheckingWinning();
+            }
+            catch
+            {
+                answerLb.Text = "Please enter a number from 1 to 10";
+                answerLb.ForeColor = Color.Brown;
+            }
+        }
+
+        void CheckingWinning()
+        {
             int number = int.Parse(txb.Text);
             if (number == randomNumber)
             {
-                answerLb.Text = "You got it!";
-                answerLb.ForeColor = Color.Green;
+                WinGame();
             }
             else
             {
@@ -61,6 +74,14 @@ namespace NumberGuessingGame
             answerLb.Text = "";
             btn2.Text = "Restart";
             txb.Text = "";
+        }
+
+        void WinGame()
+        {
+            answerLb.Text = "You got it!";
+            answerLb.ForeColor = Color.Green;
+            MessageBox.Show("You win!");
+            InitialGame();
         }
     }
 }
